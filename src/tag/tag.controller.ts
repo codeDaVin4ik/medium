@@ -1,6 +1,10 @@
-import { Controller } from "@nestjs/common";
+import { Controller, Get } from "@nestjs/common";
 
-@Controller('tag')
+@Controller('tags')
 export class TagController{
-    
+
+    @Get()
+    fiindAll(){
+        return ['coffee', 'dragons'];
+    }
 }
