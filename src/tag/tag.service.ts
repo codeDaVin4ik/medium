@@ -1,4 +1,8 @@
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
-export class TagService{}
+export class TagService{
+    fiindAll(){
+        return ['coffee', 'dragons', 'service'];
+    }
+}
