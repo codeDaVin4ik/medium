@@ -9,7 +9,7 @@ const config = {
     database: 'lastMedium',
     entities: [__dirname+'/**/*.entity{.ts,.js}'],
     synchronize: false,
-    migrations: [__dirname + '/src/migrations/**/*{.ts,.js}']
+    migrations: [__dirname + '/src/migrations/**/*.ts']
 }
 
 export default config;
