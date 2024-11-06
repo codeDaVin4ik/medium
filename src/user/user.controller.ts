@@ -1,6 +1,8 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Post, UsePipes, ValidationPipe } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/CreateUserDto";
+import { UserEntity } from "./user.entity";
+import { UserResponceIterface } from "./types/userRespoce.interface";
 
 @Controller('users')
 export class UserController{
@@ -8,7 +10,9 @@ export class UserController{
     constructor(private readonly userService: UserService){}
 
     @Post()
-    async createUser(@Body('user') createUserDto: CreateUserDto):Promise<any>{
-        return this.userService.createUser(createUserDto);
+    @UsePipes(new ValidationPipe())
+    async createUser(@Body('user') createUserDto: CreateUserDto):Promise<UserResponceIterface>{
+        const user = await this.userService.createUser(createUserDto);
+        return this.userService.buildUserResponce(user);
     }
 }
