@@ -10,7 +10,10 @@ import { compare } from 'bcrypt';
 
 @Injectable()
 export class UserService{
-    async login(loginUserDto: LoginUserDto) {
+   
+    constructor(@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>){}
+
+    async login(loginUserDto: LoginUserDto):Promise<UserEntity> {
         const user = await this.userRepository.findOne({
             where: {
                 email: loginUserDto.email
@@ -21,12 +24,10 @@ export class UserService{
         }
         const isPasswordCorrect = await compare(loginUserDto.password, user.password);
         if(!isPasswordCorrect){
-            throw new HttpException('Unauthorized: username or password are incorrect', HttpStatus.UNAUTHORIZED)
+            throw new HttpException('Unauthorized: username or password  are incorrect', HttpStatus.UNAUTHORIZED)
         } 
         return user;
     }
-
-    constructor(@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>){}
 
     async createUser(createUserDto: CreateUserDto):Promise<UserEntity> {
         const userByName = await this.userRepository.findOne({
@@ -47,6 +48,11 @@ export class UserService{
         return await this.userRepository.save(newUser);
     }
 
+    async getCurretUser(): Promise<any> {
+            return 'current user';
+    }
+
+
     buildUserResponce(user:UserEntity):any{
         return {
             user: {
@@ -61,5 +67,13 @@ export class UserService{
             username: user.username,
             email: user.email
         }, JWT_TOKEN);
+    }
+
+    async findById(id: any) {
+        return await this.userRepository.findOne({
+            where: {
+                id
+            }
+        })
     }
 }
