@@ -8,7 +8,6 @@ export class CreateTag1730752216969 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "tags" ("id" SERIAL NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_e7dc17249a1148a1970748eda99" PRIMARY KEY ("id"))`);
         await queryRunner.query(`ALTER TABLE "users" DROP COLUMN "username"`);
         await queryRunner.query(`ALTER TABLE "users" ADD "username" character varying NOT NULL`);
-        await queryRunner.query(`ALTER TABLE "users" ADD "userName" character varying NOT NULL`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
