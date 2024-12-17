@@ -7,9 +7,10 @@ import ormconfig from 'ormconfig';
 import { DataSourceOptions } from 'typeorm';
 import { UserModule } from './user/user.module';
 import { AuthMiddleware } from './middlewares/auth.middleware';
+import { ArticleModule } from './articles/article.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(ormconfig as DataSourceOptions),TagModule, UserModule],
+  imports: [TypeOrmModule.forRoot(ormconfig as DataSourceOptions),TagModule, UserModule, ArticleModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -33,6 +33,11 @@ export class UserController{
         return this.userService.buildUserResponce(user);
     }
 
+    @Get()
+    getAllUsers():Promise<UserEntity[]>{
+        return this.userService.getAll();
+    }
+
     @Put('/user')
     @UseGuards(AuthGuard)
     async updateUser(@User() user: UserEntity, @Body('user') updateUserDto: UpdateUserDto):Promise<UserResponceIterface>{
